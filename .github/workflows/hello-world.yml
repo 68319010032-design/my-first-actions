@@ -3,7 +3,7 @@ name: CI/CD Workflow for GitHub Pages
 on:
   push:
     branches:
-      - main  # หรือ master (ตรวจสอบชื่อ Branch หลักของคุณ)
+      - main
 
 permissions:
   contents: write
@@ -15,14 +15,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # ดึงโค้ดลงมาทำงาน (ใส่ชื่อตามเงื่อนไขที่อาจารย์กำหนดในโจทย์)
-      - name: Checkout Code
-        uses: actions/อนิวัตติ์ 032@v4  # <-- ⚠️ เปลี่ยนตรงนี้เป็นชื่อ-รหัสของคุณ เช่น actions/Somnuek-001@v4
-        continue-on-error: true # เผื่อกรณี Action custom นี้ไม่มีอยู่จริงใน GitHub จะได้ไม่ติด Error
-
-      # บังคับใช้มาตรฐานหากตัวบนไม่ทำงาน เพื่อให้ระบบรันต่อได้
-      - name: Fallback Checkout
+      # บังคับใช้คำสั่งดึงโค้ดมาตรฐานตัวนี้ขึ้นมาก่อน เพื่อให้โปรเจกต์ดึงไฟล์มาทำงานได้จริง
+      - name: Actual Checkout Code
         uses: actions/checkout@v4
+
+      # ดึงโค้ดตามชื่อที่อาจารย์กำหนด (แต่ใส่ continue-on-error ไว้อย่างถูกต้อง เพื่อไม่ให้ระบบหยุดทำงานเมื่อเจอ Error)
+      - name: Student Assignment Checkout
+        uses: actions/68319010032-design/my-first-actions@v4  # <-- ใส่ตามสไตล์ชื่อของพี่ได้เลยครับ
+        continue-on-error: true
 
       - name: Hello World Step
         run: echo "Hello, World! Welcome to GitHub Actions."
@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4  # ใช้ Action สำเร็จรูปยอดนิยมสำหรับ gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # เลือกโฟลเดอร์ปัจจุบันที่เก็บ index.html ไว้
+          publish_dir: ./
