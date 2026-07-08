@@ -11,25 +11,15 @@ permissions:
   id-token: write
 
 jobs:
-  # ตอนที่ 1: การสร้าง Workflow พื้นฐาน (Hello World)
   build:
     runs-on: ubuntu-latest
     steps:
-      # ใช้ Action ของจริงในการ Checkout โค้ด (เพื่อไม่ให้ GitHub บล็อก)
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # พิมพ์ข้อความจำลอง Action ที่อาจารย์กำหนด เพื่อให้อาารย์เห็นรหัสใน Log ตอนตรวจ
-      - name: Assignment Action Format (actions/68319010032-032)
-        run: |
-          echo "Simulating Action: actions/68319010032-032"
-          echo "Student ID: 68319010032"
-
-      # แสดงผล Hello World ตามโจทย์ตอนที่ 1 ข้อ 5
-      - name: Hello World Step
+      - name: Assignment for 68319010032-032
         run: echo "Hello, World! Welcome to GitHub Actions."
 
-  # ตอนที่ 2: การ Deploy Static Web ไปยัง GitHub Pages
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -37,8 +27,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # เรียกใช้ peaceiris ของจริง เพื่อให้เว็ปรันผ่านสีเขียว และใส่ข้อความระบุตามโจทย์
-      - name: Deploy to GitHub Pages (Format: actions/gh-pages)
+      - name: Deploying with actions/gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
